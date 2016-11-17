@@ -13,6 +13,8 @@
 * https://developer.salesforce.com/blogs/engineering/2013/02/force-com-soql-best-practices-nulls-and-formula-fields.html
 * https://developer.salesforce.com/blogs/engineering/2014/03/force-com-soql-best-practice-sort-optimization.html
 * https://developer.salesforce.com/blogs/engineering/2013/03/force-com-formula-fields-indexes-and-performance-gotchas.html
+* https://developer.salesforce.com/blogs/engineering/2014/11/force-com-soql-performance-tips-systemmodstamp-vs-lastmodifieddate-2.html
+* https://developer.salesforce.com/blogs/engineering/2013/07/maximizing-the-performance-of-force-com-soql-reports-and-list-views.html
 
 ### Performance
 * https://developer.salesforce.com/blogs/engineering/2013/07/maximizing-the-performance-of-force-com-soql-reports-and-list-views.html
