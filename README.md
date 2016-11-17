@@ -18,7 +18,7 @@
 * https://developer.salesforce.com/blogs/engineering/2013/07/maximizing-the-performance-of-force-com-soql-reports-and-list-views.html
 * https://developer.salesforce.com/blogs/engineering/2013/03/long-and-short-term-approaches-for-tuning-force-com-performance.html
 * https://developer.salesforce.com/page/Designing_Record_Access_for_Enterprise_Scale
-* https://help.salesforce.com/help/pdfs/en/salesforce_query_search_optimization_developer_cheatsheet.pdf
+* http://resources.docs.salesforce.com/rel1/doc/en-us/static/pdf/salesforce_query_search_optimization_developer_cheatsheet.pdf
 * https://developer.salesforce.com/blogs/engineering/2015/11/avoiding-the-concurrent-request-limit-via-synchronous-callout-optimization.html
 
 ### Visibility
