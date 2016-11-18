@@ -1,0 +1,23 @@
+1. Always catch the CalloutException
+
+try {
+    //Execute web service call here
+    HTTPResponse res = http.send(req);
+
+    //Helpful debug messages
+    System.debug(res.toString());
+    System.debug('STATUS:'+res.getStatus());
+    System.debug('STATUS_CODE:'+res.getStatusCode());
+} catch(System.CalloutException e) {
+    //Exception handling goes here.... retry the call, whatever
+}
+
+2. Always set the timeout on the callout:
+The default timeout is 10 seconds. The minimum is 1 millisecond and the maximum is 120 seconds.
+
+HttpRequest req = new HttpRequest();
+req.setTimeout(60000); // timeout in milliseconds - this is one minute
+
+There is a maximum cumulative timeout for callouts by a single Apex transaction (currently 120 seconds - see the Apex Language Reference Guide for a definitive number). This time is additive across all callouts invoked by the Apex transaction.
+The Apex callout request size must be smaller than a set maximum limit.
+A governor limit is set on the number of web service calls or callouts per trigger or Apex class invocation.
