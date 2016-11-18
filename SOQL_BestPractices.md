@@ -28,6 +28,46 @@
       WHERE Thread__c = :threadId AND
       threadID != null])
       
-      
+ * When you have to find all records from object including deleted records and archived activities?
+ -----> System.assertEquals(2, [SELECT COUNT() FROM Contact WHERE AccountId = a.Id ALL ROWS]);
+ //You can use ALL ROWS to query records in your organization's Recycle Bin. You cannot use the ALL ROWS keywords with the FOR UPDATE keywords.
+ 
+ *creating a list from a SOQL query, with the DML update method.
+ -----> List<Account> accs = [SELECT Id, Name FROM Account WHERE Name = 'Siebel']; 
+  // Loop through the list and update the Name field
+ for(Account a : accs){
+   a.Name = 'Oracle';
+ }
+ // Update the database
+ update accs;
+ 
+ 
+ *When you try to retrieves 200 contacts from a single account using for loop without any exception.
+ -----> //To avoid getting this exception, use a for loop to iterate over the child records
+ for (Account acct : [SELECT Id, Name, (SELECT Id, Name FROM Contacts) 
+                    FROM Account WHERE Id IN ('<ID value>')]) { 
+    Integer count=0;
+    for (Contact c : acct.Contacts) {
+        count++;
+    }
+}
+ 
+ 
+ * How to create a empty list in SOQl?
+ ----> List<Account> myList = new List<Account>();
+ 
+ *How to Auto-populating a List from a SOQL Query?
+ -----> List<Account> accts = [SELECT Id, Name FROM Account LIMIT 1000];
+ 
+ * How to add a Retrieving List Elements through SOQL quires?
+ ----> List<Account> myList = new List<Account>(); // Define a new list
+  Account a = new Account(Name='Acme'); // Create the account first
+  myList.add(a);                    // Add the account sObject
+  Account a2 = myList.get(0);      // Retrieve the element at index 0
+
+
+*
+
+
       
  
