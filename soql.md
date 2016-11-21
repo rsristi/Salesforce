@@ -125,3 +125,15 @@
  Select Id, Name from Account where LastModifiedDate = CustomDate__c
  Select Id, Name from Account where LastModifiedDate < CutoffDate__c
  ```
+
+
+## Take Care Of Performance
+
+1. SOQL has a list of functions that deal with dates which makes your life a lot easier
+  ```
+  1) CALENDAR functions: CALENDAR_MONTH, CALENDAR_QUARTER, CALENDAR_YEAR
+  2) DAYDAY : DAY_IN_MONTH, DAY_IN_WEEK, DAY_IN_YEAR, DAY_ONLY
+  3) FISCAL: FISCAL_MONTH, FISCAL_QUARTER, FISCAL_YEAR
+  4) HOUR function: HOUR_IN_DAY
+  5) WEEK function: WEEK_IN_MONTH, WEEK_IN_YEAR
+  ```
