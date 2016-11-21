@@ -1,24 +1,21 @@
-### Apex Web Services and Callouts
+# Apex Web Services and Callouts
+
 
 ## Table of contents
 
-- [Quick start](#quick-start)
-- [Bugs and feature requests](#bugs-and-feature-requests)
-- [Documentation](#documentation)
-- [Always Handle Your Exceptions](Always-Handle-Your-Exceptions)
-- Design for Debugging
-- Take Care of Performance
+- [Overview](#Overview)
+- [Always Handle Your Exceptions](#Always-Handle-Your-Exceptions)
+- [Design for Debugging](#Design-for-Debugging)
+- [Take Care of Performance](#Take-Care-of-Performance)
 - [Know Your Governor Limits](#Know-Your-Governor-Limits])
-- Bulkify your Code
-- [Copyright and license](#copyright-and-license)
+- [Other](#Other)
 
-## Quick start
+## Overview
 
-
-
+https://developer.salesforce.com/page/Apex_Web_Services_and_Callouts#HTTP_Code_Sample
 
 
-### Always Handle Your Exceptions
+## Always Handle Your Exceptions
 
 1. Always Always Catch the CalloutException
 
@@ -40,10 +37,9 @@ try {
 * Make Long-Running Callouts from Visualforce pages using the Continuation pattern
 
 
-### Design
+## Design
 
-### Details Details Details
-1. Always set the timeout on the callout:
+* Always set the timeout on the callout:
 The default timeout is 10 seconds. The minimum is 1 millisecond and the maximum is 120 seconds.
 
 ```

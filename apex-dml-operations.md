@@ -1,31 +1,35 @@
-### Apex DML Operations
-
+# Apex DML Operations
 
 ## Table of contents
 
-- [Quick start](#quick-start)
-- [Bugs and feature requests](#bugs-and-feature-requests)
-- [Documentation](#documentation)
-- [Always Handle Your Exceptions](Always-Handle-Your-Exceptions)
-- Design for Debugging
-- Take Care of Performance
+- [Overview](#Overview)
+- [Always Handle Your Exceptions](#Always-Handle-Your-Exceptions)
+- [Design for Debugging](#Design-for-Debugging)
+- [Take Care of Performance](#Take-Care-of-Performance)
 - [Know Your Governor Limits](#Know-Your-Governor-Limits])
-- Bulkify your Code
-- [Copyright and license](#copyright-and-license)
+- [Other](#Other)
 
-## Quick start
-
-
+## Overview
 You can perform DML operations using the Apex DML statements or the methods of the Database class.
 
+* Make the insert not fail if one record fails
+List<Account> accounts = new List<Account>();
 
-### Always Handle Your Exceptions
-1. Always Always Catch Your Exceptions
-2. System.debug Your Exceptions
-3. Log/Communicate Your Exceptions - When you catch exceptions, you lose the default notification mechanisms that exist with uncaught exceptions—we'll need to build our own. Stop hoping your users will report errors.
-4. We may need to handle our own rollback using Apex transaction control.
-5. Usually empty try-catch is a bad idea because you are silently swallowing an error condition and then continuing execution.
-6. Don't over do it. Do not put all your code in one big try-catch - https://developer.salesforce.com/forums/?id=906F00000009BhUIAU
+// Populate the accounts list
+
+// insert accounts; Instead of insert, use a DML database method with a value of false for the optional opt_allOrNone parameter
+
+Database.SaveResult[] result = Database.Insert(accounts, false);
+
+Use DML database methods if you want to allow partial success of a bulk DML operation—if a record fails, the remainder of the DML operation can still succeed. Your application can then inspect the rejected records and possibly retry the operation. When using this form, you can write code that never throws DML exception errors. Instead, your code can use the appropriate results array to judge success or failure. Note that DML database methods also include a syntax that supports thrown exceptions, similar to DML statements.
+
+* Make the update not fail if one record fails
+
+## Always Handle Your Exceptions
+* Always Always Catch Your Exceptions.
+* You may need to handle our own rollback using Apex transaction control.
+* Empty try-catch is a bad idea because you are silently swallowing an error condition and then continuing execution.
+* Don't over do it. Do not put all your code in one big try-catch -
 
 
 * DML Statements  
@@ -82,29 +86,21 @@ for(Integer idx = 0; idx < srs.size(); idx++) {
 System.debug(msg);
 
 ```
+### Links
+* https://developer.salesforce.com/forums/?id=906F00000009BhUIAU
 
 
 ### Design for Debugging
-1. System.debug Your Exceptions
-2. System.debug Your Successes
-3. Communicate
+* System.debug Your Exceptions
+* System.debug Your Successes
+* Log/Communicate Your Exceptions - When you catch exceptions, you lose the default notification mechanisms that exist with uncaught exceptions. You will need to build our own exception tracking mechanism. Stop hoping your users will report errors. (send email, use sentry.io, custom object, apex web-service)
 
 
-* Make the insert not fail if one record fails
-List<Account> accounts = new List<Account>();
-
-// Populate the accounts list
-
-// insert accounts; Instead of insert, use a DML database method with a value of false for the optional opt_allOrNone parameter
-
-Database.SaveResult[] result = Database.Insert(accounts, false);
-
-Use DML database methods if you want to allow partial success of a bulk DML operation—if a record fails, the remainder of the DML operation can still succeed. Your application can then inspect the rejected records and possibly retry the operation. When using this form, you can write code that never throws DML exception errors. Instead, your code can use the appropriate results array to judge success or failure. Note that DML database methods also include a syntax that supports thrown exceptions, similar to DML statements.
-
-* Make the update not fail if one record fails
+### Links
+* https://sentry.io
 
 
-### Performance
+## Take Care of Performance
 
 SOQL / DML / Loops Performance
 
@@ -124,5 +120,16 @@ public void Method10(ID AccountID) {
   Use of the Limits Apex Methods to Avoid Hitting Governor Limits
 
 ### Links
-https://eltoro.secure.force.com/ArticleViewer?id=a07A000000PyGjkIAF
-https://eltoro.secure.force.com/SoqlDmlLoopsPerformance
+* https://eltoro.secure.force.com/ArticleViewer?id=a07A000000PyGjkIAF
+* https://eltoro.secure.force.com/SoqlDmlLoopsPerformance
+
+
+
+## Know Your Governor Limits
+
+
+
+
+## Other
+
+### Bulkify your Code

@@ -1,7 +1,7 @@
+# Salesforce Record ID
 
 
-
-### Salesforce 15 digit vs 18 Digit Record ID
+## 15 digit vs 18 Digit Record ID
 
 Salesforce provides case-sensitive and case-insensitive versions of the same globally unique id.
 

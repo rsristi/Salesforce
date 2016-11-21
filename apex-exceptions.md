@@ -1,22 +1,12 @@
-### Apex Exceptions
+# Apex Exceptions
 
 
-### Table of contents
+## Table of contents
 
-- [Quick start](#quick-start)
-- [Bugs and feature requests](#bugs-and-feature-requests)
-- [Documentation](#documentation)
-- [Always Handle Your Exceptions](Always-Handle-Your-Exceptions)
-- Design for Debugging
-- Take Care of Performance
-- [Know Your Governor Limits](#Know-Your-Governor-Limits])
-- Bulkify your Code
-- [Copyright and license](#copyright-and-license)
+- [Overview](#Overview)
 
 
-
-### Quick start
-
+## Overview
 
 You can have multiple Catch blocks to catch any of the 20 different kinds of exceptions. If you use a generic exception catcher, it must be the last Catch block.
 
@@ -36,7 +26,5 @@ try{
 ```
 
 
-
-
-Links
-https://eltoro.secure.force.com/HowDoIConvertAnIdFrom15To18Characters
+### Links
+* https://eltoro.secure.force.com/HowDoIConvertAnIdFrom15To18Characters
