@@ -14,20 +14,21 @@
 
 
 1. when we Working with Very Large SOQL Queries?
-   * use a SOQL query "for loop" as in one of the following examples-
-   *  // Use this format if you are not executing DML statements
-   *  for (Account a : [SELECT Id, Name FROM Account
-   *               WHERE Name LIKE 'Acme%']) {
-   *  // Your code without DML statements here
-   *   }
+  ```
+    use a SOQL query "for loop" as in one of the following examples-
+     // Use this format if you are not executing DML statements
+     for (Account a : [SELECT Id, Name FROM Account
+                  WHERE Name LIKE 'Acme%']) {
+     // Your code without DML statements here
+      }
 
-   *   // Use this format for efficiency if you are executing DML statements
-   *    for (List<Account> accts : [SELECT Id, Name FROM Account
-   *                         WHERE Name LIKE 'Acme%']) {
-   *   // Your code here
-   *   update accts;
-   *   }
-
+      // Use this format for efficiency if you are executing DML statements
+       for (List<Account> accts : [SELECT Id, Name FROM Account
+                            WHERE Name LIKE 'Acme%']) {
+      // Your code here
+      update accts;
+      }
+ ```
 
 
 * When we use query for trigger they must be more selective Queries for processing in large amount of records:
