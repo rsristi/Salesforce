@@ -130,6 +130,17 @@
  
   SELECT Title FROM Position__c WHERE CALENDAR_MONTH(Date_Closed__c) = 2
  ```
+14. GROUP BY is used in conjunction with aggregate functions to group the result-set by one or more columns.
+ ```
+ 
+ SELECT Position__r.Department__c deptname, COUNT(id) total FROM Job_Application__c GROUP BY Position__r.Department__c
+ ```
+15. use of HAVING clause along with GROUP BY clause to filter the results returned by aggregate functions.
+ ```
+ 
+ SELECT Position__r.Department__c deptname, COUNT(id) total FROM Job_Application__c GROUP BY 
+ Position__r.Department__c HAVING  COUNT(id)>1
+ ``` 
  
 ## Take Care Of Performance
 
