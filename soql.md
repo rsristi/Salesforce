@@ -141,6 +141,20 @@
  SELECT Position__r.Department__c deptname, COUNT(id) total FROM Job_Application__c GROUP BY 
  Position__r.Department__c HAVING  COUNT(id)>1
  ``` 
+16. RELATIONSHIP QUERIES IN SOQL
+ ```
+ 
+ Select Id, Name, Account.Name From Contact   //Basic Child to Parent
+ Select Id, Name, Account.Parent.Name From Contact   //Expanded Child to Parent
+ Select Id, Name (Select Name From Contacts) From Account  //Basic Parent to Child
+ Select Id, Name, Account.Name (Select Quantity, UnitPrice, TotalPrice, PricebookEntry.Name, 
+ PricebookEntry.Product2.Family From  OpportunityLineItems) From Opportunity  //Combined Child to Parent and Parent to Child
+ ```
+
+
+
+
+
  
 ## Take Care Of Performance
 
