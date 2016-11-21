@@ -34,23 +34,30 @@
 * When we use query for trigger they must be more selective Queries for processing in large amount of records:
  ``` 
 
- If the count of records returned by SELECT COUNT() FROM Account WHERE CustomField__c = 'ValueA' is lower than 
- the selectivity         threshold, and CustomField__c is indexed, the query is selective.
+ // If the count of records returned by 
+ SELECT COUNT() FROM Account WHERE CustomField__c = 'ValueA' 
+ // is lower than the selectivity threshold, and CustomField__c is indexed, the query is selective.
  SELECT Id FROM Account WHERE Name != '' AND CustomField__c = 'ValueA' 
  ```
  
 
 * How to avoid null values while searching records?
- ----> // Note WHERE clause verifies that threadId is not null
-
+ ```
+ 
+ // Note WHERE clause verifies that threadId is not null
    for(CSO_CaseThread_Tag__c t :
       [SELECT Name FROM CSO_CaseThread_Tag__c
       WHERE Thread__c = :threadId AND
       threadID != null])
+ ```     
 
 * When you have to find all records from object including deleted records and archived activities?
- -----> System.assertEquals(2, [SELECT COUNT() FROM Contact WHERE AccountId = a.Id ALL ROWS]);
- //You can use ALL ROWS to query records in your organization's Recycle Bin. You cannot use the ALL ROWS keywords with the FOR UPDATE keywords.
+ ```
+ 
+ System.assertEquals(2, [SELECT COUNT() FROM Contact WHERE AccountId = a.Id ALL ROWS]);
+ //You can use ALL ROWS to query records in your organization's Recycle Bin. You cannot use the ALL ROWS keywords with 
+ the FOR UPDATE keywords.
+ ```
 
 * Creating a list from a SOQL query, with the DML update method.
  -----> List<Account> accs = [SELECT Id, Name FROM Account WHERE Name = 'Siebel'];
