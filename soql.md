@@ -31,7 +31,7 @@
  ```
 
 
-* When we use query for trigger they must be more selective Queries for processing in large amount of records:
+2. When we use query for trigger they must be more selective Queries for processing in large amount of records:
  ``` 
 
  // If the count of records returned by 
@@ -41,7 +41,7 @@
  ```
  
 
-* How to avoid null values while searching records?
+3. How to avoid null values while searching records?
  ```
  
  // Note WHERE clause verifies that threadId is not null
@@ -51,7 +51,7 @@
       threadID != null])
  ```     
 
-* When you have to find all records from object including deleted records and archived activities?
+4. When you have to find all records from object including deleted records and archived activities?
  ```
  
  System.assertEquals(2, [SELECT COUNT() FROM Contact WHERE AccountId = a.Id ALL ROWS]);
@@ -59,39 +59,49 @@
  the FOR UPDATE keywords.
  ```
 
-* Creating a list from a SOQL query, with the DML update method.
- -----> List<Account> accs = [SELECT Id, Name FROM Account WHERE Name = 'Siebel'];
+5. Creating a list from a SOQL query, with the DML update method.
+ ```
+ 
+ List<Account> accs = [SELECT Id, Name FROM Account WHERE Name = 'Siebel'];
   // Loop through the list and update the Name field
  for(Account a : accs){
    a.Name = 'Oracle';
  }
  // Update the database
  update accs;
+ ```
 
-
-* When you try to retrieves 200 contacts from a single account using for loop without any exception.
- -----> //To avoid getting this exception, use a for loop to iterate over the child records
+6. When you try to retrieves 200 contacts from a single account using for loop without any exception.
+ ```
+ 
+ //To avoid getting this exception, use a for loop to iterate over the child records
  for (Account acct : [SELECT Id, Name, (SELECT Id, Name FROM Contacts)
                     FROM Account WHERE Id IN ('<ID value>')]) {
     Integer count=0;
     for (Contact c : acct.Contacts) {
         count++;
     }
-}
+ }
+ ```
 
 
-* How to create a empty list in SOQl?
- ----> List<Account> myList = new List<Account>();
+7. How to create a empty list in SOQl?
+ ```
+ List<Account> myList = new List<Account>();
+```
 
-* How to Auto-populating a List from a SOQL Query?
- -----> List<Account> accts = [SELECT Id, Name FROM Account LIMIT 1000];
-
-* How to add a Retrieving List Elements through SOQL quires?
- ----> List<Account> myList = new List<Account>(); // Define a new list
+8. How to Auto-populating a List from a SOQL Query?
+ ```
+ 
+ List<Account> accts = [SELECT Id, Name FROM Account LIMIT 1000];
+ ```
+9. How to add a Retrieving List Elements through SOQL quires?
+ ```
+  List<Account> myList = new List<Account>(); // Define a new list
   Account a = new Account(Name='Acme'); // Create the account first
   myList.add(a);                    // Add the account sObject
   Account a2 = myList.get(0);      // Retrieve the element at index 0
-
+ ```
 
 * When you have a million accounts records and you have to find the selected records by using their date?
 ----->  SELECT id FROM Account WHERE CreatedDate  > 2013-01-01T00:00:00Z //for standard field
