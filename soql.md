@@ -131,6 +131,7 @@
 
 1. SOQL has a list of functions that deal with dates which makes your life a lot easier
   ```
+  
   1) CALENDAR functions: CALENDAR_MONTH, CALENDAR_QUARTER, CALENDAR_YEAR
   2) DAYDAY : DAY_IN_MONTH, DAY_IN_WEEK, DAY_IN_YEAR, DAY_ONLY
   3) FISCAL: FISCAL_MONTH, FISCAL_QUARTER, FISCAL_YEAR
