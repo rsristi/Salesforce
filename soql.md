@@ -125,8 +125,11 @@
  Select Id, Name from Account where LastModifiedDate = CustomDate__c
  Select Id, Name from Account where LastModifiedDate < CutoffDate__c
  ```
-
-
+13. Selective query using of Date function
+ ```
+  SELECT Title FROM Position__c WHERE CALENDAR_MONTH(Date_Closed__c) = 2
+ ```
+ 
 ## Take Care Of Performance
 
 1. SOQL has a list of functions that deal with dates which makes your life a lot easier
