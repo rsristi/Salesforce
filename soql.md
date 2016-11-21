@@ -109,7 +109,7 @@
  SELECT id FROM Account WHERE CustomIndexedDate__c  > 2013-01-01T00:00:00Z // for custmize field
  ```       
 
- 11.Using NOT EQUAL TO by selective query?
+11. Using NOT EQUAL TO by selective query?
  ```
  SELECT id FROM Case WHERE Status != ‘Closed’ // Generally used query
  ```      
