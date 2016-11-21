@@ -54,7 +54,7 @@
 4. When you have to find all records from object including deleted records and archived activities?
  ```
  
- System.assertEquals(2, [SELECT COUNT() FROM Contact WHERE AccountId = a.Id ALL ROWS]);
+ SELECT COUNT() FROM Contact WHERE AccountId = a.Id ALL ROWS
  //You can use ALL ROWS to query records in your organization's Recycle Bin. You cannot use the ALL ROWS keywords with 
  the FOR UPDATE keywords.
  ```
