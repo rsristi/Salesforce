@@ -30,7 +30,7 @@
 
 
 
-* When we use query for trigger they must be more selective Queries for processing in large amount of records.
+* When we use query for trigger they must be more selective Queries for processing in large amount of records:
  ''' 
 
  If the count of records returned by SELECT COUNT() FROM Account WHERE CustomField__c = 'ValueA' is lower than 
