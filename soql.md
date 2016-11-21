@@ -113,7 +113,14 @@
  ```
  SELECT id FROM Case WHERE Status != ‘Closed’ // Generally used query
  SELECT id FROM Case WHERE Status IN (‘New’, ‘On Hold’, ‘Pending’, ‘ReOpened’) // Selective Query
+ 
  //In this case, you do want to add additional filters to reduce the number of records retrieved
  SELECT id FROM Case WHERE NOT (Status IN (‘On Hold’, ‘Pending’, ‘ReOpened’))
  SELECT id FROM Case WHERE Status IN ('New', 'Closed') AND Priority = ‘High’
  ```      
+12. How can LastModifiedDate filters affect SOQL performance?
+ ```
+ Select Id, Name from Account where LastModifiedDate > 2014-11-08T00:00:00Z
+ Select Id, Name from Account where LastModifiedDate = CustomDate__c
+ Select Id, Name from Account where LastModifiedDate < CutoffDate__c
+ ```
