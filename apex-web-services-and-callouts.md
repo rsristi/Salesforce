@@ -50,3 +50,8 @@ req.setTimeout(60000); // timeout in milliseconds - this is one minute
 There is a maximum cumulative timeout for callouts by a single Apex transaction (currently 120 seconds - see the Apex Language Reference Guide for a definitive number). This time is additive across all callouts invoked by the Apex transaction.
 The Apex callout request size must be smaller than a set maximum limit.
 A governor limit is set on the number of web service calls or callouts per trigger or Apex class invocation.
+
+
+## Others
+
+* user Notification
