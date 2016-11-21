@@ -127,6 +127,7 @@
  ```
 13. Selective query using of Date function
  ```
+ 
   SELECT Title FROM Position__c WHERE CALENDAR_MONTH(Date_Closed__c) = 2
  ```
  
