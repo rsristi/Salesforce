@@ -112,4 +112,8 @@
 11. Using NOT EQUAL TO by selective query?
  ```
  SELECT id FROM Case WHERE Status != ‘Closed’ // Generally used query
+ SELECT id FROM Case WHERE Status IN (‘New’, ‘On Hold’, ‘Pending’, ‘ReOpened’) // Selective Query
+ //In this case, you do want to add additional filters to reduce the number of records retrieved
+ SELECT id FROM Case WHERE NOT (Status IN (‘On Hold’, ‘Pending’, ‘ReOpened’))
+ SELECT id FROM Case WHERE Status IN ('New', 'Closed') AND Priority = ‘High’
  ```      
