@@ -81,4 +81,11 @@
   Account a2 = myList.get(0);      // Retrieve the element at index 0
 
 
-*
+* When you have a million accounts records and you have to find the selected records by using their date?
+----->  SELECT id FROM Account WHERE CreatedDate  > 2013-01-01T00:00:00Z //for standard field
+        SELECT id FROM Account WHERE CustomIndexedDate__c  > 2013-01-01T00:00:00Z // for custmize field
+        
+* Using NOT EQUAL TO by selective query?
+'''
+SELECT id FROM Case WHERE Status != ‘Closed’ // Generally used query
+'''       
