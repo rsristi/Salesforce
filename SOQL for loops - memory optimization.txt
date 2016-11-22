@@ -1,0 +1,51 @@
+https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_loops_for_SOQL.htm
+
+Developers should always use a SOQL for loop to process 
+query results that return many records, to avoid the limit on heap size.
+
+While the standard queries discussed in SOQL and SOSL Queries can 
+retrieve either the count of a query or a number of object records, 
+SOQL for loops retrieve all sObjects, using efficient chunking 
+with calls to the query and queryMore methods of the SOAP API.
+
+Note that queries including an aggregate function don't support queryMore. 
+A run-time exception occurs if you use a query containing an aggregate 
+function that returns more than 2,000 rows in a for loop.
+
+String s = 'Acme';
+for (Account a : [SELECT Id, Name from Account where Name LIKE :(s+'%')]){
+
+    // Your code
+
+}
+
+SOQL for loops can process records one at a time using a single sObject 
+variable, or in batches of 200 sObjects at a time using an sObject list
+
+Also, For example, the query in the following SOQL for loop retrieves 
+child contacts for a particular account. If this account contains more 
+than 200 child contacts, the statements in the for loop cause an 
+exception.
+
+for (Account acct : [SELECT Id, Name, (SELECT Id, Name FROM Contacts) FROM Account WHERE Id IN ('<ID value>')]) {
+ 
+    
+   List<Contact> contactList = acct.Contacts; // Causes an error
+    
+   Integer count = acct.Contacts.size(); // Causes an error
+}
+}
+
+To avoid above error 
+
+for (Account acct : [SELECT Id, Name, (SELECT Id, Name FROM Contacts) FROM Account WHERE Id IN ('<ID value>')]) { 
+    
+   Integer count=0;
+    
+   for (Contact c : acct.Contacts) {
+        
+         count++;
+    
+   }
+
+}

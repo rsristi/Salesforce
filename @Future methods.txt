@@ -1,0 +1,18 @@
+https://developer.salesforce.com/page/Apex_Code_Best_Practices
+
+Just like bulkification, @future method should be invoked with a batch 
+of records so that it is only invoked once for all records it 
+needs to process
+
+trigger accountAsyncTrigger on Account (after insert, after update) {
+    
+//By passing the @future method a set of Ids, it only needs to be
+    
+// invoked once to handle all of the data. 
+    
+asyncApex.processAccount(Trigger.newMap.keySet());
+
+}
+
+
+Where process account is @future annotated method

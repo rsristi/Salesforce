@@ -1,0 +1,143 @@
+https://developer.salesforce.com/page/Apex_Code_Best_Practices
+
+Note the use of Test.startTest and Test.stopTest. When executing tests, 
+code called before Test.startTest and after Test.stopTest receive a 
+separate set of governor limits than the code called between 
+Test.startTest and Test.stopTest. This allows for any data that needs to 
+be setup to do so without affecting the governor limits available to 
+the actual code being tested.
+
+Since Apex code executes in bulk, it is essential to have test scenarios 
+to verify that the Apex being tested is designed to handle large 
+datasets and not just single records.
+
+To elaborate, an Apex trigger can be invoked either by a data operation 
+from the user interface or by a data operation from the Force.com 
+SOAP API. The API can send multiple records per batch, leading to the 
+trigger being invoked with several records. Therefore, it is key to have 
+test methods that verify that all Apex code is properly designed to 
+handle larger datasets and that it does not exceed governor limits.
+
+Example of nicely written code in apex:
+trigger contactTest on Contact (before insert, before update) {
+   
+   
+Set<Id> accountIds = new Set<Id>();
+   
+for(Contact ct: Trigger.new)
+{   	   
+      accountIds.add(ct.AccountId);
+
+}   
+   
+//Do SOQL Query	   
+   
+Map<Id, Account> accounts = new Map<Id, Account>(
+[select id, name, billingState from Account where id in&nbsp;:accountIds]);
+  
+   
+
+for(Contact ct: Trigger.new){
+       
+if(accounts.get(ct.AccountId).BillingState=='CA'){
+   	   	   
+  System.debug('found a contact related to an account in california...');
+   	   	   
+  ct.email = 'test_email@testing.com';
+   	   	   
+  //Apply more logic here....
+   	   
+}
+   
+} 
+   
+
+}
+ 
+and corresponding tests properly written:
+public class sampleTestMethodCls {
+
+	
+
+static testMethod void testAccountTrigger(){
+		
+		
+  //First, prepare 200 contacts for the test data
+		
+  Account acct = new Account(name='test account');
+		
+  insert acct;
+		
+		
+  Contact[] contactsToCreate = new Contact[]{};
+		
+
+  for(Integer x=0; x<200;x++){
+		    
+    Contact ct = new Contact(AccountId=acct.Id,lastname='test');
+		    
+    contactsToCreate.add(ct);
+		
+  }
+		
+		
+  //Now insert data causing an contact trigger to fire. 
+		
+  Test.startTest();
+		
+  insert contactsToCreate;
+		
+  Test.stopTest();	
+	
+  }	
+ 
+}
+
+
+
+https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing_best_practices.htm
+Good tests do the following:
+
+1) If code uses conditional logic (including ternary operators), 
+execute each branch.
+2) Make calls to methods using both valid and invalid inputs.
+3) Complete successfully without throwing any exceptions, unless those 
+errors are expected and caught in a try…catch block.
+4) Always handle all exceptions that are caught, instead of merely 
+catching the exceptions.
+5) Use System.assert methods to prove that code behaves properly.
+6) Use the runAs method to test your application in different user 
+contexts.
+7) Exercise bulk trigger functionality—use at least 20 records in your 
+tests.
+8) Use the ORDER BY keywords to ensure that the records are returned in 
+the expected order.
+9) Not assume that record IDs are in sequential order.
+10) Record IDs are not created in ascending order unless you insert 
+multiple records with the same request. For example, if you create an 
+account A, and receive the ID 001D000000IEEmT, then create account B, 
+the ID of account B may or may not be sequentially higher.
+
+Set up test data:
+1) Create the necessary data in test classes, so the tests do not have 
+to rely on data in a particular organization.
+2) Create all test data before calling the Test.startTest method.
+3) Since tests don't commit, you won't need to delete any data.
+
+Write comments stating not only what is supposed to be tested, but the 
+assumptions the tester made about the data, the expected outcome, and 
+so on.
+Test the classes in your application individually. Never test your 
+entire application in a single test.
+
+Best Practices for Parallel Test Execution:
+Tests that are started from the Salesforce user interface (including 
+the Developer Console) run in parallel. Parallel test execution can 
+speed up test run time. Sometimes, parallel test execution results in 
+data contention issues, and you can turn off parallel execution in those 
+cases.
+
+a) From Setup, enter Apex Test.
+b) Click Options....
+c) In the Apex Test Execution Options dialog, select Disable Parallel 
+Apex Testing and then click OK.
