@@ -1,0 +1,23 @@
+In visualforce, there is a method for passing parameters from visualforce page to controller using javascript 
+and actionFunction. Here is the example;
+
+/*JavaScript*/
+<script type="text/javascript">
+function doSave(date) {
+    paraFunction(document.getElementById(date).value);
+}
+</script>
+
+/*Action Function called from javascript which calls controller method 
+and passes interviewDate to the controller method*/
+<apex:actionFunction name="paraFunction" action="{!saveInterviewDate}" rerender="view">     
+     <apex:param id="aname" name="interviewDate" value="" />
+ </apex:actionFunction>
+
+/*Call the javaScript from here*/
+<apex:commandLink onclick="doSave('{!$Component.interviewDate}');">               
+                       <apex:commandButton value="Save"/>
+                   </apex:commandLink>
+
+/*get the parameter in controller*/
+String interviewdate=Apexpages.currentPage().getParameters().get('interviewDate');

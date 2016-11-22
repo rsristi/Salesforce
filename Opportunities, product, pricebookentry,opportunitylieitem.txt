@@ -1,0 +1,41 @@
+Products are represented by Product2 objects
+Products are the individual items  or services  that you sell to customers  
+through  your opportunites and quotes. 
+You can create a product and  associate it with a price in  a pricebook. 
+Each product can exist in many different  pricebooks  with many different prices. 
+
+
+A Price Book is a list of products and their associated  prices . 
+Each Product and it’s price is called  apricebook entry. 
+Pricebooks are represented by Pricebook2 objects. 
+
+Note: 
+ 
+1) PricebookEntry is a junction object between Pricebook2 and Product2. 
+2) OpportunityLineItem is a junction object between PricebookEntry 
+andOpportunity. 
+ 
+Helpful code:
+Product2 product1 = new Product2();         
+product1.name = 'Test Prod1';         
+insert product1;                     
+
+//adding a price book entry                      
+PriceBookEntry pricebk = new PriceBookEntry();         
+pricebk.CurrencyIsoCode = 'USD';         
+pricebk.UnitPrice = 1.0;         
+pricebk.Pricebook2Id =[select id,name from PriceBook2 where name like 'Standard Price B ook' limit 1].id;         
+pricebk.Product2Id = product1.id;         
+pricebk.IsActive = true;           
+pricebk.UseStandardPrice = false;            
+insert pricebk;                  
+
+//initialize the line item                                 
+OpportunityLineItem oppLineItem = new OpportunityLineItem();         
+oppLineItem.OpportunityId = oppty.Id;         
+oppLineItem.PricebookEntryId = pricebk.Id;  
+
+Opportunity 
+1) Opportunity object stores data of potential sales and pending sales. 
+2) One opportunity can only have one pricebook. 
+3) One opportunity can contain one or many line items
